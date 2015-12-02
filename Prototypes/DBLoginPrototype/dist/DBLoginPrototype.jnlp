@@ -11,7 +11,7 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="DBLoginPrototype.jar" size="4285" download="eager" />
+    <jar href="DBLoginPrototype.jar" size="7856" download="eager" />
     <jar href="lib/mysql-connector-java-commercial-5.1.36-bin.jar" size="972030" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="DBLoginPrototype" >

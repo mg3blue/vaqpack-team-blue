@@ -36,18 +36,24 @@ public class DBLoginPrototype extends Application {
     @Override
     public void start(Stage primaryStage) {
         Button btn = new Button("Login");
+        Button regis = new Button("Register");
         TextField lgin = new TextField();
         TextField pass = new TextField();
         Label log = new Label("Username: ");
         Label pss = new Label("Password: ");
-        Label suc = new Label("You have successfully logged in!");
+        Label newUser = new Label("New User?");
+        Label suc = new Label("");
         GridPane lg = new GridPane();        
         lg.addRow(0, log, lgin);
         lg.addRow(1, pss, pass);
         lg.addRow(2, btn);
+        lg.addRow(4, newUser, regis);
         lg.setAlignment(Pos.CENTER);
         suc.setVisible(false);
         suc.setAlignment(Pos.CENTER);
+        // Stays disabled as long as lgin TextField and pass TextField are empty
+        btn.disableProperty().bind(lgin.textProperty().isEmpty());
+        btn.disableProperty().bind(pass.textProperty().isEmpty());
         btn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
@@ -77,6 +83,7 @@ public class DBLoginPrototype extends Application {
                         {
                             lg.setVisible(false);
                             suc.setVisible(true);
+                            suc.setText("You have successfully logged in!");
                         }
                         else
                         {
@@ -114,11 +121,74 @@ public class DBLoginPrototype extends Application {
             }
         });
         
-        BorderPane root = new BorderPane();
-        root.setCenter(lg);
-        root.setBottom(suc);
+        Label regUser = new Label("Username: ");
+        Label regPass = new Label("Password: ");
+        Label regConf = new Label("Confirm New Password: ");
+        Label firstName = new Label("First Name: ");
+        Label lastName = new Label("Last Name: ");
+        Label phonNum = new Label("Phone Number: ");
+        Label email = new Label("E-mail address: ");
+        TextField regUserTF = new TextField();
+        TextField regPassTF = new TextField();
+        TextField regConfTF = new TextField();
+        TextField firstNameTF = new TextField();
+        TextField lastNameTF = new TextField();
+        TextField phonNumTF = new TextField();
+        TextField emailTF = new TextField();
+        GridPane reg = new GridPane();
+        Button done = new Button("Register");
+        Button back = new Button("Return");
+        done.disableProperty().bind(regUserTF.textProperty().isEmpty());
+        done.disableProperty().bind(regPassTF.textProperty().isEmpty());
+        done.disableProperty().bind(regConfTF.textProperty().isEmpty());
+        done.disableProperty().bind(firstNameTF.textProperty().isEmpty());
+        done.disableProperty().bind(lastNameTF.textProperty().isEmpty());
+        done.disableProperty().bind(phonNumTF.textProperty().isEmpty());
+        done.disableProperty().bind(emailTF.textProperty().isEmpty());
+        done.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                lg.setVisible(true);
+                reg.setVisible(false);
+                suc.setText("Please login now.");
+            }
+        });
+        reg.addRow(0, regUser, regUserTF);
+        reg.addRow(1, regPass, regPassTF);
+        reg.addRow(2, regConf, regConfTF);
+        reg.addRow(3, firstName, firstNameTF);
+        reg.addRow(4, lastName, lastNameTF);
+        reg.addRow(5, phonNum, phonNumTF);
+        reg.addRow(6, email, emailTF);
+        reg.addRow(7, done);
+        reg.addRow(8, back);
         
-        Scene scene = new Scene(root, 300, 250);
+        reg.setVisible(false);
+        reg.setAlignment(Pos.CENTER);
+        regis.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                lg.setVisible(false);
+                reg.setVisible(true);
+                suc.setText("Please fill the text fields.");
+            }
+        });
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                lg.setVisible(true);
+                reg.setVisible(false);
+            }
+        });
+        StackPane swtch = new StackPane();
+        swtch.getChildren().addAll(lg, reg);
+        BorderPane root = new BorderPane();
+        root.setCenter(swtch);
+        root.setBottom(suc);
+        Scene scene = new Scene(root, 500, 450);
         
         primaryStage.setTitle("Login");
         primaryStage.setScene(scene);
