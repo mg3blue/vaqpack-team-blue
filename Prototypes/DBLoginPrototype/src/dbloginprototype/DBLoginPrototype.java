@@ -35,88 +35,90 @@ public class DBLoginPrototype extends Application {
     static final String DATABASE_URL = "jdbc:mysql://127.0.0.1/test";
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button("Login");
-        Button regis = new Button("Register");
-        TextField lgin = new TextField();
-        TextField pass = new TextField();
-        Label log = new Label("Username: ");
-        Label pss = new Label("Password: ");
+        
+        Button loginBtn = new Button("Login");
+        Button registerBtn = new Button("Register");
+        TextField logTF = new TextField();
+        TextField pwTF = new TextField();
+        Label logL = new Label("Username: ");
+        Label pwL = new Label("Password: ");
         Label newUser = new Label("New User?");
         Label suc = new Label("");
-        GridPane lg = new GridPane();        
-        lg.addRow(0, log, lgin);
-        lg.addRow(1, pss, pass);
-        lg.addRow(2, btn);
-        lg.addRow(4, newUser, regis);
-        lg.setAlignment(Pos.CENTER);
+        
+        
+        GridPane loginPane = new GridPane();        
+        loginPane.addRow(0, logL, logTF);
+        loginPane.addRow(1, pwL, pwTF);
+        loginPane.addRow(2, loginBtn);
+        loginPane.addRow(4, newUser, registerBtn);
+        loginPane.setAlignment(Pos.CENTER);
         suc.setVisible(false);
         suc.setAlignment(Pos.CENTER);
+        
         // Stays disabled as long as lgin TextField and pass TextField are empty
-        btn.disableProperty().bind(lgin.textProperty().isEmpty());
-        btn.disableProperty().bind(pass.textProperty().isEmpty());
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                Connection connect = null;
-                Statement state = null;
-                ResultSet result = null;
-                ArrayList<String> what = new ArrayList<>();
-                try
+        loginBtn.disableProperty().bind(logTF.textProperty().isEmpty());
+        loginBtn.disableProperty().bind(pwTF.textProperty().isEmpty());
+        loginBtn.setOnAction((ActionEvent event) -> {
+            Connection connect = null;
+            Statement state = null;
+            ResultSet result = null;
+            ArrayList<String> what = new ArrayList<>();
+            try
+            {
+                connect = DriverManager.getConnection(DATABASE_URL, "local", "Plethora98!");
+                state = connect.createStatement();
+                result = state.executeQuery("SELECT username, pass FROM test.User WHERE username = '" + logTF.getText() + "';");
+                ResultSetMetaData meta = result.getMetaData();
+                int numberOfColumns = meta.getColumnCount();
+                System.out.println(numberOfColumns);
+                while (result.next())
                 {
-                    connect = DriverManager.getConnection(DATABASE_URL, "local", "Plethora98!");       
-                    state = connect.createStatement();
-                    result = state.executeQuery("SELECT username, pass FROM test.User WHERE username = '" + lgin.getText() + "';");
-                    ResultSetMetaData meta = result.getMetaData();
-                    int numberOfColumns = meta.getColumnCount();
-                    System.out.println(numberOfColumns);
-                    while (result.next())
-                    {                     
-                        for (int i = 1; i <= numberOfColumns; i++)   
-                        {
-                            what.add(result.getObject(i) + "");
-                        }
-                    }
-                    if (what.isEmpty() == false)
+                    for (int i = 1; i <= numberOfColumns; i++)
                     {
-                        if (pass.getText().equals(what.get(1)))
-                        {
-                            lg.setVisible(false);
-                            suc.setVisible(true);
-                            suc.setText("You have successfully logged in!");
-                        }
-                        else
-                        {
-                            lgin.clear();
-                            pass.clear();
-                            suc.setVisible(true);
-                            suc.setText("Login failed. Please try again.");
-                        }
+                        what.add(result.getObject(i) + "");
+                    }
+                }
+                if (what.isEmpty() == false)
+                {
+                    if (pwTF.getText().equals(what.get(1)))
+                    {
+                        loginPane.setVisible(false);
+                        suc.setVisible(true);
+                        suc.setText("You have successfully logged in!");
                     }
                     else
                     {
-                        lgin.clear();
-                        pass.clear();
+                        logTF.clear();
+                        pwTF.clear();
                         suc.setVisible(true);
                         suc.setText("Login failed. Please try again.");
                     }
                 }
-                catch (SQLException sqlexception)
+                else
                 {
-                    sqlexception.printStackTrace();
+                    logTF.clear();
+                    pwTF.clear();
+                    suc.setVisible(true);
+                    suc.setText("Login failed. Please try again.");
                 }
-                finally
+            }
+            catch (SQLException sqlexception)
+            {
+                sqlexception.printStackTrace();
+                System.out.println("ERROR ERROR ERROR");
+            }
+            finally
+            {
+                try
                 {
-                    try
-                    {
-                        result.close();
-                        state.close();
-                        connect.close();
-                    }
-                    catch (Exception exception)
-                    {
-                        exception.printStackTrace();
-                    }
+                    result.close();
+                    state.close();
+                    connect.close();
+                }
+                catch (Exception exception)
+                {
+                    exception.printStackTrace();
+                    System.out.println("ERROR ERROR ERROR");
                 }
             }
         });
@@ -135,7 +137,7 @@ public class DBLoginPrototype extends Application {
         TextField lastNameTF = new TextField();
         TextField phonNumTF = new TextField();
         TextField emailTF = new TextField();
-        GridPane reg = new GridPane();
+        GridPane registerPane = new GridPane();
         Button done = new Button("Register");
         Button back = new Button("Return");
         done.disableProperty().bind(regUserTF.textProperty().isEmpty());
@@ -145,46 +147,38 @@ public class DBLoginPrototype extends Application {
         done.disableProperty().bind(lastNameTF.textProperty().isEmpty());
         done.disableProperty().bind(phonNumTF.textProperty().isEmpty());
         done.disableProperty().bind(emailTF.textProperty().isEmpty());
-        done.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                lg.setVisible(true);
-                reg.setVisible(false);
-                suc.setText("Please login now.");
-            }
-        });
-        reg.addRow(0, regUser, regUserTF);
-        reg.addRow(1, regPass, regPassTF);
-        reg.addRow(2, regConf, regConfTF);
-        reg.addRow(3, firstName, firstNameTF);
-        reg.addRow(4, lastName, lastNameTF);
-        reg.addRow(5, phonNum, phonNumTF);
-        reg.addRow(6, email, emailTF);
-        reg.addRow(7, done);
-        reg.addRow(8, back);
         
-        reg.setVisible(false);
-        reg.setAlignment(Pos.CENTER);
-        regis.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                lg.setVisible(false);
-                reg.setVisible(true);
-                suc.setText("Please fill the text fields.");
-            }
+        done.setOnAction((ActionEvent event) -> {
+            loginPane.setVisible(true);
+            registerPane.setVisible(false);
+            suc.setText("Please login now.");
         });
-        back.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                lg.setVisible(true);
-                reg.setVisible(false);
-            }
+        registerPane.addRow(0, regUser, regUserTF);
+        registerPane.addRow(1, regPass, regPassTF);
+        registerPane.addRow(2, regConf, regConfTF);
+        registerPane.addRow(3, firstName, firstNameTF);
+        registerPane.addRow(4, lastName, lastNameTF);
+        registerPane.addRow(5, phonNum, phonNumTF);
+        registerPane.addRow(6, email, emailTF);
+        registerPane.addRow(7, done);
+        registerPane.addRow(8, back);
+        
+        registerPane.setVisible(false);
+        registerPane.setAlignment(Pos.CENTER);
+        registerBtn.setOnAction((ActionEvent event) -> {
+            loginPane.setVisible(false);
+            registerPane.setVisible(true);
+            suc.setText("Please fill the text fields.");
         });
+        
+        back.setOnAction((ActionEvent event) -> {
+            loginPane.setVisible(true);
+            registerPane.setVisible(false);
+        });
+        
+        
         StackPane swtch = new StackPane();
-        swtch.getChildren().addAll(lg, reg);
+        swtch.getChildren().addAll(loginPane, registerPane);
         BorderPane root = new BorderPane();
         root.setCenter(swtch);
         root.setBottom(suc);
