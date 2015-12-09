@@ -46,7 +46,7 @@ public class VaqPack_App extends Application {
         
         
         //Scene scene = new Scene(loginpane.getMain(), 600, 600);
-        Scene scene = new Scene(main, 600, 300);
+        Scene scene = new Scene(main, 600, 400);
         
         primaryStage.setTitle("VaqPack");
         primaryStage.setScene(scene);
