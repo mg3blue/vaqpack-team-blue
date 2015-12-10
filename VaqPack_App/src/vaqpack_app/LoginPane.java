@@ -5,6 +5,13 @@
  */
 package vaqpack_app;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,7 +27,7 @@ import javafx.scene.layout.StackPane;
  * @author mg3Blue
  */
 public class LoginPane {
-
+    static final String DATABASE_URL = "jdbc:mysql://127.0.0.1/test";
     //Login Pane nodes
     GridPane loginPane = new GridPane();
     Button loginBtn = new Button("Login");
@@ -30,7 +37,6 @@ public class LoginPane {
     Label logL = new Label("Username: ");
     Label pwL = new Label("Password: ");
     Label newUser = new Label("New User?");
-    //Label suc = new Label("");
     
     //Register Pane nodes
     GridPane registerPane = new GridPane();
@@ -70,56 +76,48 @@ public class LoginPane {
         // Stays disabled as long as lgin TextField and pass TextField are empty
         loginBtn.disableProperty().bind(logTF.textProperty().isEmpty());
         loginBtn.disableProperty().bind(pwTF.textProperty().isEmpty());
-//        loginBtn.setOnAction((ActionEvent event) -> {
-//            Connection connect = null;
-//            Statement state = null;
-//            ResultSet result = null;
-//            ArrayList<String> what = new ArrayList<>();
-//            try {
-//                connect = DriverManager.getConnection(DATABASE_URL, "local", "Plethora98!");
-//                state = connect.createStatement();
-//                result = state.executeQuery("SELECT username, pass FROM test.User WHERE username = '" + logTF.getText() + "';");
-//                ResultSetMetaData meta = result.getMetaData();
-//                int numberOfColumns = meta.getColumnCount();
-//                System.out.println(numberOfColumns);
-//                while (result.next()) {
-//                    for (int i = 1; i <= numberOfColumns; i++) {
-//                        what.add(result.getObject(i) + "");
-//                    }
-//                }
-//                if (what.isEmpty() == false) {
-//                    if (pwTF.getText().equals(what.get(1))) {
-//                        loginPane.setVisible(false);
-//                        suc.setVisible(true);
-//                        suc.setText("You have successfully logged in!");
-//                    } else {
-//                        logTF.clear();
-//                        pwTF.clear();
-//                        suc.setVisible(true);
-//                        suc.setText("Login failed. Please try again.");
-//                    }
-//                } else {
-//                    logTF.clear();
-//                    pwTF.clear();
-//                    suc.setVisible(true);
-//                    suc.setText("Login failed. Please try again.");
-//                }
-//            } catch (SQLException sqlexception) {
-//                sqlexception.printStackTrace();
-//                System.out.println("ERROR ERROR ERROR");
-//            } finally {
-//                try {
-//                    result.close();
-//                    state.close();
-//                    connect.close();
-//                } catch (Exception exception) {
-//                    exception.printStackTrace();
-//                    System.out.println("ERROR ERROR ERROR");
-//                }
-//            }
-//        });
-
-
+        loginBtn.setOnAction((ActionEvent event) -> {
+            Connection connect = null;
+            Statement state = null;
+            ResultSet result = null;
+            ArrayList<String> what = new ArrayList<>();
+            try {
+                connect = DriverManager.getConnection(DATABASE_URL, "local", "Plethora98!");
+                state = connect.createStatement();
+                result = state.executeQuery("SELECT username, pass FROM test.User WHERE username = '" + logTF.getText() + "';");
+                ResultSetMetaData meta = result.getMetaData();
+                int numberOfColumns = meta.getColumnCount();
+                System.out.println(numberOfColumns);
+                while (result.next()) {
+                    for (int i = 1; i <= numberOfColumns; i++) {
+                        what.add(result.getObject(i) + "");
+                    }
+                }
+                if (what.isEmpty() == false) {
+                    if (pwTF.getText().equals(what.get(1))) {
+                        loginPane.setVisible(false);
+                    } else {
+                        logTF.clear();
+                        pwTF.clear();
+                    }
+                } else {
+                    logTF.clear();
+                    pwTF.clear();
+                }
+            } catch (SQLException sqlexception) {
+                sqlexception.printStackTrace();
+                System.out.println("ERROR ERROR ERROR");
+            } finally {
+                try {
+                    result.close();
+                    state.close();
+                    connect.close();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    System.out.println("ERROR ERROR ERROR");
+                }
+            }
+        });
         //Register Pane settings and setup
         rpRegisterButton.disableProperty().bind(regUserTF.textProperty().isEmpty());
         rpRegisterButton.disableProperty().bind(regPassTF.textProperty().isEmpty());
@@ -130,9 +128,31 @@ public class LoginPane {
         rpRegisterButton.disableProperty().bind(emailTF.textProperty().isEmpty());
 
         rpRegisterButton.setOnAction((ActionEvent event) -> {
+            Connection connect = null;
+            Statement state = null;
+            ResultSet result = null;
+            ArrayList<String> what = new ArrayList<>();
+            try {
+                connect = DriverManager.getConnection(DATABASE_URL, "local", "Plethora98!");
+                state = connect.createStatement();
+                state.executeUpdate("INSERT INTO test.user " +
+                        "VALUES ('" + regUserTF.getText() + "', '" + regPassTF.getText() + 
+                        "', '" + firstNameTF.getText() + "', '" + lastNameTF.getText() + 
+                        "', " + phonNumTF.getText() + ", '" + emailTF.getText() + "');");              
+            } catch (SQLException sqlexception) {
+                sqlexception.printStackTrace();
+                System.out.println("ERROR ERROR ERROR");
+            } finally {
+                try {
+                    state.close();
+                    connect.close();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    System.out.println("ERROR ERROR ERROR");
+                }
+            }
             loginPane.setVisible(true);
             registerPane.setVisible(false);
-            //suc.setText("Please login now.");
         });
         registerPane.addRow(0, regUser, regUserTF);
         registerPane.addRow(1, regPass, regPassTF);
