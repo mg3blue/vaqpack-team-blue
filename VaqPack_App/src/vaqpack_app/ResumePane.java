@@ -30,7 +30,7 @@ public class ResumePane {
     //<editor-fold desc="Experience Elements">
     
     GridPane experienceGrid = new GridPane();
-    ArrayList<Experience> expList = new ArrayList<Experience>();
+    private ArrayList<Experience> expList = new ArrayList<Experience>();
     ListView<String> expLV = new ListView<String>();
     ObservableList<String> expData = FXCollections.observableArrayList();
     VBox expBox = new VBox(5);
@@ -52,7 +52,7 @@ public class ResumePane {
     
     //<editor-fold desc="Education Elements">
     GridPane edGrid = new GridPane();
-    ArrayList<Education> eduList = new ArrayList<>();
+    private ArrayList<Education> eduList = new ArrayList<Education>();
     ListView<String> eduLV = new ListView<>();
     ObservableList<String> eduData = FXCollections.observableArrayList();
     VBox eduBox = new VBox(5);
@@ -70,7 +70,7 @@ public class ResumePane {
 
     //<editor-fold desc="Skill Elements">
     GridPane skillGrid = new GridPane();
-    ArrayList<String> skillList = new ArrayList<>();
+    private ArrayList<String> skillList = new ArrayList<>();
     ListView<String> skLV = new ListView<>();
     ObservableList<String> skData = FXCollections.observableArrayList();
     VBox skBox = new VBox(5);
@@ -299,6 +299,27 @@ public class ResumePane {
     
     public VBox getMain(){
         return main;
+    }
+
+    /**
+     * @return the expList
+     */
+    public ArrayList<Experience> getExpList() {
+        return expList;
+    }
+
+    /**
+     * @return the eduList
+     */
+    public ArrayList<Education> getEduList() {
+        return eduList;
+    }
+
+    /**
+     * @return the skillList
+     */
+    public ArrayList<String> getSkillList() {
+        return skillList;
     }
     
 }

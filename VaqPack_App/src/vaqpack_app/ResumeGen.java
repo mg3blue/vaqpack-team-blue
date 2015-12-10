@@ -35,20 +35,39 @@ public class ResumeGen {
         ResumeElement begin = new ResumeElement();
         ResumeElement style = new ResumeElement();
         ResumeElement end = new ResumeElement();
+        
+        ExperienceHTML exphtml = new ExperienceHTML();
+        EducationHTML eduhtml = new EducationHTML();
+        SkillHTML skillhtml = new SkillHTML();
 
         begin.setData("<!DOCTYPE html>\n"
                 + "<html>\n" + "<head>\n" + "<title>" +webTitle+ "</title>\n");
-        style.setData("<style></stlye>" + "</head>\n" + "<body>\n" + "<h1>" +webHeader+ "</h1>");
+        style.setData("<style>body{background-color:#007030;}</style>" + "</head>\n" + "<body>\n" + "<h1>" +webHeader+ "</h1>");
         end.setData("</body>\n" + "</html>");
 
-        list.add(0, begin);
+//        list.add(0, begin);
+//        list.add(end);
+        
+        list.add(begin);
+        list.add(style);
+        
+        if(!exp.isEmpty()){
+            exphtml.setExperienceElements(exp);
+            list.add(exphtml);
+        }
+        
+        if(!edu.isEmpty()){
+            eduhtml.setEducationElements(edu);
+            list.add(eduhtml);
+        }
+        
+        if(!skill.isEmpty()){
+            skillhtml.setSkillElements(skill);
+            list.add(skillhtml);
+        }
+        
         list.add(end);
-        
-        
-        
-        
-        
-        
+             
         
 
         for (int i = 0; i < list.size(); i++) {

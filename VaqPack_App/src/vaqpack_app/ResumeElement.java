@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package vaqpack_app;
-
+import java.util.ArrayList;
 /**
  *
  * @author mg3Blue

@@ -5,6 +5,9 @@
  */
 package vaqpack_app;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -53,6 +56,15 @@ public class VaqPack_App extends Application {
         });
         userInfoBtn.setOnAction((ActionEvent event) -> {
             main.setCenter(userpane.getMain());
+        });
+        generateBtn.setOnAction((ActionEvent event) -> {
+            ResumeGen rgen = new ResumeGen("Some","some");
+            try {
+                rgen.generateHTMLPage("test.html", resumepane.getExpList(), resumepane.getEduList(), resumepane.getSkillList());
+            } catch (IOException ex) {
+                Logger.getLogger(VaqPack_App.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         });
         
         
