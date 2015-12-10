@@ -28,8 +28,9 @@ public class ResumePane {
     VBox main = new VBox(10);
     
     //<editor-fold desc="Experience Elements">
+    
     GridPane experienceGrid = new GridPane();
-    ArrayList<Exp> expList = new ArrayList<Exp>();
+    ArrayList<Experience> expList = new ArrayList<Experience>();
     ListView<String> expLV = new ListView<String>();
     ObservableList<String> expData = FXCollections.observableArrayList();
     VBox expBox = new VBox(5);
@@ -51,7 +52,7 @@ public class ResumePane {
     
     //<editor-fold desc="Education Elements">
     GridPane edGrid = new GridPane();
-    ArrayList<Edu> eduList = new ArrayList<>();
+    ArrayList<Education> eduList = new ArrayList<>();
     ListView<String> eduLV = new ListView<>();
     ObservableList<String> eduData = FXCollections.observableArrayList();
     VBox eduBox = new VBox(5);
@@ -109,7 +110,7 @@ public class ResumePane {
         Button modWork = new Button("Modify");
         addWork.setOnAction((ActionEvent event) -> {
             
-            Exp e = new Exp();
+            Experience e = new Experience();
             e.setEname(employerTF.getText());
             e.setSupervisor(supervisorTF.getText());
             e.setCity(cityExpTF.getText());
@@ -183,7 +184,7 @@ public class ResumePane {
         Button modSchool = new Button("Modify");
         
         addSchool.setOnAction((ActionEvent event) -> {
-            Edu e = new Edu();
+            Education e = new Education();
             e.setSname(schoolTF.getText());
             e.setCity(cityEduTF.getText());
             e.setState(stateEduTF.getText());
@@ -298,168 +299,6 @@ public class ResumePane {
     
     public VBox getMain(){
         return main;
-    }
-    
-    class Edu{
-        private String sname;
-        private String city;
-        private String state;
-        private String years;
-
-        /**
-         * @return the sname
-         */
-        public String getSname() {
-            return sname;
-        }
-
-        /**
-         * @param sname the sname to set
-         */
-        public void setSname(String sname) {
-            this.sname = sname;
-        }
-
-        /**
-         * @return the city
-         */
-        public String getCity() {
-            return city;
-        }
-
-        /**
-         * @param city the city to set
-         */
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-        /**
-         * @return the state
-         */
-        public String getState() {
-            return state;
-        }
-
-        /**
-         * @param state the state to set
-         */
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        /**
-         * @return the years
-         */
-        public String getYears() {
-            return years;
-        }
-
-        /**
-         * @param years the years to set
-         */
-        public void setYears(String years) {
-            this.years = years;
-        }
-        
-    }
-    
-    class Exp{
-    
-        private String ename;
-        private String Supervisor;
-        private String city;
-        private String state;
-        private String Description;
-        private String years;
-
-        /**
-         * @return the ename
-         */
-        public String getEname() {
-            return ename;
-        }
-
-        /**
-         * @param ename the ename to set
-         */
-        public void setEname(String ename) {
-            this.ename = ename;
-        }
-
-        /**
-         * @return the state
-         */
-        public String getState() {
-            return state;
-        }
-
-        /**
-         * @param state the state to set
-         */
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        /**
-         * @return the years
-         */
-        public String getYears() {
-            return years;
-        }
-
-        /**
-         * @param years the years to set
-         */
-        public void setYears(String years) {
-            this.years = years;
-        }
-
-        /**
-         * @return the Supervisor
-         */
-        public String getSupervisor() {
-            return Supervisor;
-        }
-
-        /**
-         * @param Supervisor the Supervisor to set
-         */
-        public void setSupervisor(String Supervisor) {
-            this.Supervisor = Supervisor;
-        }
-
-        /**
-         * @return the city
-         */
-        public String getCity() {
-            return city;
-        }
-
-        /**
-         * @param city the city to set
-         */
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-        /**
-         * @return the Description
-         */
-        public String getDescription() {
-            return Description;
-        }
-
-        /**
-         * @param Description the Description to set
-         */
-        public void setDescription(String Description) {
-            this.Description = Description;
-        }
-        
-        
-        
-        
     }
     
 }
