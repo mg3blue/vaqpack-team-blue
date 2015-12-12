@@ -28,6 +28,7 @@ import javafx.scene.layout.StackPane;
  */
 public class LoginPane {
     static final String DATABASE_URL = "jdbc:mysql://127.0.0.1/test";
+    static final ArrayList<String> what = new ArrayList<>();
     //Login Pane nodes
     GridPane loginPane = new GridPane();
     Button loginBtn = new Button("Login");
@@ -79,15 +80,13 @@ public class LoginPane {
         loginBtn.setOnAction((ActionEvent event) -> {
             Connection connect = null;
             Statement state = null;
-            ResultSet result = null;
-            ArrayList<String> what = new ArrayList<>();
+            ResultSet result = null;           
             try {
                 connect = DriverManager.getConnection(DATABASE_URL, "local", "Plethora98!");
                 state = connect.createStatement();
-                result = state.executeQuery("SELECT username, pass FROM test.User WHERE username = '" + logTF.getText() + "';");
+                result = state.executeQuery("SELECT * FROM test.User WHERE username = '" + logTF.getText() + "';");
                 ResultSetMetaData meta = result.getMetaData();
                 int numberOfColumns = meta.getColumnCount();
-                System.out.println(numberOfColumns);
                 while (result.next()) {
                     for (int i = 1; i <= numberOfColumns; i++) {
                         what.add(result.getObject(i) + "");
@@ -130,8 +129,6 @@ public class LoginPane {
         rpRegisterButton.setOnAction((ActionEvent event) -> {
             Connection connect = null;
             Statement state = null;
-            ResultSet result = null;
-            ArrayList<String> what = new ArrayList<>();
             try {
                 connect = DriverManager.getConnection(DATABASE_URL, "local", "Plethora98!");
                 state = connect.createStatement();

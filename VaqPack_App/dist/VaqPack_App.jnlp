@@ -11,7 +11,7 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="VaqPack_App.jar" size="28239" download="eager" />
+    <jar href="VaqPack_App.jar" size="28998" download="eager" />
     <jar href="lib/mysql-connector-java-5.1.37-bin.jar" size="985603" download="eager" />
     <jar href="lib/mysql-connector-java-commercial-5.1.36-bin.jar" size="972030" download="eager" />
   </resources>

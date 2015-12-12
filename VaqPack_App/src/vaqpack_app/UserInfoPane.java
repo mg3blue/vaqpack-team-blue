@@ -20,21 +20,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import static vaqpack_app.LoginPane.DATABASE_URL;
 
 /**
  *
  * @author mg3Blue
  */
 public class UserInfoPane {
-    //static final String DATABASE_URL = "jdbc:mysql://127.0.0.1/test";
     
     //Register Pane nodes
     GridPane userInfoPane = new GridPane();
     Button modUserInfoBtn = new Button("Change");
-    TextField firstNameTF = new TextField("Max");
-    TextField lastNameTF = new TextField("Imus");
-    TextField phonNumTF = new TextField("555-555-5555");
-    TextField emailTF = new TextField("test@edu.com");
+    TextField firstNameTF = new TextField();
+    TextField lastNameTF = new TextField();
+    //This should be an integer, so format is 9563711005 rather than 956-371-1005
+    TextField phonNumTF = new TextField();
+    TextField emailTF = new TextField();
     Label firstName = new Label("First Name: ");
     Label lastName = new Label("Last Name: ");
     Label phonNum = new Label("Phone Number: ");
@@ -53,14 +54,47 @@ public class UserInfoPane {
         userInfoPane.addRow(3, email, emailTF);
         userInfoPane.addRow(4, modUserInfoBtn);
         userInfoPane.setAlignment(Pos.CENTER);
-        
-        
-        //Register Pane settings and setup
-//        rpRegisterButton.disableProperty().bind(regConfTF.textProperty().isEmpty());
-//        rpRegisterButton.disableProperty().bind(firstNameTF.textProperty().isEmpty());
-//        rpRegisterButton.disableProperty().bind(lastNameTF.textProperty().isEmpty());
-//        rpRegisterButton.disableProperty().bind(phonNumTF.textProperty().isEmpty());
-//        rpRegisterButton.disableProperty().bind(emailTF.textProperty().isEmpty());
+/*        ArrayList<String> what = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet result = null;
+        try {
+            connection = DriverManager.getConnection(DATABASE_URL, "local", "Plethora98!"); 
+            statement = connection.createStatement();
+            result = statement.executeQuery("SELECT * FROM test.user WHERE username = 'JTMonroe982'");
+            ResultSetMetaData meta = result.getMetaData();
+            int numberOfColumns = meta.getColumnCount();
+            while (result.next())
+            {                     
+                for (int i = 1; i <= numberOfColumns; i++)   
+                {
+                    what.add(result.getObject(i) + "");
+                }
+            }
+        }
+        catch (SQLException sqlexcept) {
+            sqlexcept.printStackTrace();
+            System.out.println("ERROR ERROR ERROR");
+        }
+        finally {
+            try {
+                result.close();
+                statement.close();
+                connection.close();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    System.out.println("ERROR ERROR ERROR");
+                }
+        }
+        firstNameTF.textProperty().equals(what.get(2));
+        lastNameTF.textProperty().equals(what.get(3));
+        phonNumTF.textProperty().equals(what.get(4));
+        emailTF.textProperty().equals(what.get(5)); 
+*/
+        modUserInfoBtn.disableProperty().bind(firstNameTF.textProperty().isEmpty());
+        modUserInfoBtn.disableProperty().bind(lastNameTF.textProperty().isEmpty());
+        modUserInfoBtn.disableProperty().bind(phonNumTF.textProperty().isEmpty());
+        modUserInfoBtn.disableProperty().bind(emailTF.textProperty().isEmpty());
 
 
         
@@ -68,8 +102,18 @@ public class UserInfoPane {
             per.setFname(firstNameTF.getText());
             per.setLname(lastNameTF.getText());
             per.setPhone(phonNumTF.getText());
-            per.setEmail(emailTF.getText());
-
+            per.setEmail(emailTF.getText());      
+            Connection connect = null;
+            Statement state = null;
+            try {
+                connect = DriverManager.getConnection(DATABASE_URL, "local", "Plethora98!");
+                state = connect.createStatement();
+                state.executeUpdate("UPDATE test.user SET firstName = '" + firstNameTF.getText() + "', lastName = '" + lastNameTF.getText() + 
+                        "', phonNum = " + phonNumTF.getText() + ", email = '" + emailTF.getText() + "' WHERE username = 'JTMonroe982';");              
+            } catch (SQLException sqlexception) {
+                sqlexception.printStackTrace();
+                System.out.println("ERROR ERROR ERROR");
+            } 
         });
         
         
