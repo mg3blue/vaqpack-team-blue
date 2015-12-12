@@ -33,6 +33,7 @@ public class VaqPack_App extends Application {
     ResumePane resumepane = new ResumePane();
     LoginPane loginpane = new LoginPane();
     UserInfoPane userpane = new UserInfoPane();
+    MakeDocsPane makepane = new MakeDocsPane();
     VBox btnBox = new VBox(5);
     
     
@@ -57,15 +58,22 @@ public class VaqPack_App extends Application {
         userInfoBtn.setOnAction((ActionEvent event) -> {
             main.setCenter(userpane.getMain());
         });
+//        generateBtn.setOnAction((ActionEvent event) -> {
+//            ResumeGen rgen = new ResumeGen("Some","some");
+//            try {
+//                rgen.generateHTMLPage(userpane.getPer(), resumepane.getExpList(), resumepane.getEduList(), resumepane.getSkillList());
+//            } catch (IOException ex) {
+//                Logger.getLogger(VaqPack_App.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            
+//        });
         generateBtn.setOnAction((ActionEvent event) -> {
-            ResumeGen rgen = new ResumeGen("Some","some");
-            try {
-                rgen.generateHTMLPage("test.html", resumepane.getExpList(), resumepane.getEduList(), resumepane.getSkillList());
-            } catch (IOException ex) {
-                Logger.getLogger(VaqPack_App.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            makepane.setData(userpane.getPer(), resumepane.getExpList(), resumepane.getEduList(), resumepane.getSkillList());
+            main.setCenter(makepane.getMain());
+            
             
         });
+        
         
         
         main.setLeft(btnBox);

@@ -31,14 +31,16 @@ public class UserInfoPane {
     //Register Pane nodes
     GridPane userInfoPane = new GridPane();
     Button modUserInfoBtn = new Button("Change");
-    TextField firstNameTF = new TextField();
-    TextField lastNameTF = new TextField();
-    TextField phonNumTF = new TextField();
-    TextField emailTF = new TextField();
+    TextField firstNameTF = new TextField("Max");
+    TextField lastNameTF = new TextField("Imus");
+    TextField phonNumTF = new TextField("555-555-5555");
+    TextField emailTF = new TextField("test@edu.com");
     Label firstName = new Label("First Name: ");
     Label lastName = new Label("Last Name: ");
     Label phonNum = new Label("Phone Number: ");
     Label email = new Label("E-mail address: ");
+    
+    private Personal per = new Personal();
 
     //Pane to return;
     Pane main = new Pane();
@@ -61,6 +63,17 @@ public class UserInfoPane {
 //        rpRegisterButton.disableProperty().bind(emailTF.textProperty().isEmpty());
 
 
+        
+        modUserInfoBtn.setOnAction((ActionEvent event) -> {
+            per.setFname(firstNameTF.getText());
+            per.setLname(lastNameTF.getText());
+            per.setPhone(phonNumTF.getText());
+            per.setEmail(emailTF.getText());
+
+        });
+        
+        
+        
         StackPane pane = new StackPane();
         pane.getChildren().addAll(userInfoPane);
         main = pane;
@@ -70,6 +83,13 @@ public class UserInfoPane {
     
     public Pane getMain(){
         return this.main;
+    }
+
+    /**
+     * @return the per
+     */
+    public Personal getPer() {
+        return per;
     }
     
 }

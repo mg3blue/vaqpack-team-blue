@@ -15,34 +15,38 @@ import java.util.ArrayList;
  * @author mg3Blue
  */
 public class ResumeGen {
-    private String webTitle;
-    private String webHeader;
-
-    public ResumeGen(String myTitle,String myHeader) {
-        webTitle =myTitle; 
-        webHeader=myHeader;
-    }
 
     PrintWriter outputStream = null;
     ArrayList<ResumeElement> list = new ArrayList<>();
-    public void appendResumeElement(ResumeElement e)
-    {
-        list.add(e);
-    }
 
-    public void generateHTMLPage(String fname, ArrayList<Experience> exp, ArrayList<Education> edu, ArrayList<String> skill) throws IOException {
-        outputStream = new PrintWriter(new FileWriter(fname));
+    public void generateHTMLPage(Personal per,  ArrayList<Experience> exp, ArrayList<Education> edu, ArrayList<String> skill, String theme) throws IOException {
+        outputStream = new PrintWriter(new FileWriter(per.getFname()+"Resume.html"));
         ResumeElement begin = new ResumeElement();
         ResumeElement style = new ResumeElement();
         ResumeElement end = new ResumeElement();
+        Themes th = new Themes();
         
+        PersonalHTML perhtml = new PersonalHTML();
         ExperienceHTML exphtml = new ExperienceHTML();
         EducationHTML eduhtml = new EducationHTML();
         SkillHTML skillhtml = new SkillHTML();
 
-        begin.setData("<!DOCTYPE html>\n"
-                + "<html>\n" + "<head>\n" + "<title>" +webTitle+ "</title>\n");
-        style.setData("<style>body{background-color:#007030;}</style>" + "</head>\n" + "<body>\n" + "<h1>" +webHeader+ "</h1>");
+        begin.setData("<!DOCTYPE html>\r\n"
+                + "<html>\n" + "<head>\n" + "<title>" + per.getFname() +"'s Resume"+ "</title>\n");
+        
+        if("Theme 1".equals(theme)){
+            style.setData(th.rTheme1());
+        }
+        if("Theme 2".equals(theme)){
+            style.setData(th.rTheme2());
+        }
+        if("Theme 3".equals(theme)){
+            style.setData(th.rTheme3());
+        }
+        if("Theme 4".equals(theme)){
+            style.setData(th.rTheme4());
+        } 
+        
         end.setData("</body>\n" + "</html>");
 
 //        list.add(0, begin);
@@ -50,6 +54,12 @@ public class ResumeGen {
         
         list.add(begin);
         list.add(style);
+        
+        if(per.getLname().isEmpty()){
+        } else {
+            perhtml.setPer(per);
+            list.add(perhtml);
+        }
         
         if(!exp.isEmpty()){
             exphtml.setExperienceElements(exp);
