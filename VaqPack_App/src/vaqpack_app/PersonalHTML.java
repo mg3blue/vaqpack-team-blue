@@ -17,9 +17,9 @@ public class PersonalHTML extends ResumeElement{
     public void createContent()
     {
         StringBuilder finalString = new StringBuilder();
-        finalString.append("<h3> "+ getPer().getFname() + " " + getPer().getLname() + "</h3>"+ "\n");
-        finalString.append("<h3> "+ getPer().getPhone() + "</h3>"+ "\n");
-        finalString.append("<h3> "+ getPer().getEmail() + "</h3>"+ "\n");
+        finalString.append("<h1> "+ getPer().getFname() + " " + getPer().getLname() + "</h1>"+ "\r\n");
+        finalString.append("<h3> "+ getPer().getPhone() + "</h3>"+ "\r\n");
+        finalString.append("<h3> "+ getPer().getEmail() + "</h3>"+ "\r\n");
         this.setHtmlData(finalString.toString());
     }
     @Override

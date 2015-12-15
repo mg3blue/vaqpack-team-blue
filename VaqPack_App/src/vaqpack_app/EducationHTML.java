@@ -21,24 +21,24 @@ public class EducationHTML extends ResumeElement{
         String quote = "\"";
         
 
-        finalString.append("<h2>Education</h2>\n"+"<table style=\"width:50%\">");
-        finalString.append("<tr>" + "\n"); // start new row
-        finalString.append("<td><b>" + "School" + "</b></td>" + "\n");
-        finalString.append("<td><b>" + "City" + "</b></td>" + "\n");
-        finalString.append("<td><b>" + "State" + "</b></td>" + "\n");
-        finalString.append("<td><b>" + "Years" + "</b></td>" + "\n");
-        finalString.append("</tr>" + "\n"); // end row
+        finalString.append("<h2>Education</h2>\n"+"<table style=\"width:50%\">\r\n");
+        finalString.append("<tr>" + "\r\n"); // start new row
+        finalString.append("<th><b>" + "School" + "</b></th>" + "\r\n");
+        finalString.append("<th><b>" + "City" + "</b></th>" + "\r\n");
+        finalString.append("<th><b>" + "State" + "</b></th>" + "\r\n");
+        finalString.append("<th><b>" + "Years" + "</b></th>" + "\r\n");
+        finalString.append("</tr>" + "\r\n"); // end row
         
         
         for(int i = 0; i < getEducationElements().size(); i++){
-            finalString.append("<tr>" + "\n"); // start new row
-            finalString.append("<td>" + getEducationElements().get(i).getSname() + "</td>" + "\n");
-            finalString.append("<td>" + getEducationElements().get(i).getCity() + "</td>" + "\n");
-            finalString.append("<td>" + getEducationElements().get(i).getState() + "</td>" + "\n");
-            finalString.append("<td>" + getEducationElements().get(i).getYears() + "</td>" + "\n");
-            finalString.append("</tr>" + "\n"); // end row
+            finalString.append("<tr>" + "\r\n"); // start new row
+            finalString.append("<td>" + getEducationElements().get(i).getSname() + "</td>" + "\r\n");
+            finalString.append("<td>" + getEducationElements().get(i).getCity() + "</td>" + "\r\n");
+            finalString.append("<td>" + getEducationElements().get(i).getState() + "</td>" + "\r\n");
+            finalString.append("<td>" + getEducationElements().get(i).getYears() + "</td>" + "\r\n");
+            finalString.append("</tr>" + "\r\n"); // end row
         }
-        finalString.append("</table>" + "\n" + "<br>" + "\n");
+        finalString.append("</table>" + "\r\n" + "<br></br>" + "\r\n");
         this.setHtmlData(finalString.toString());
 }
 //

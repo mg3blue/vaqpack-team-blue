@@ -5,8 +5,11 @@
  */
 package vaqpack_app;
 
+import com.lowagie.text.DocumentException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -29,6 +32,7 @@ public class MakeDocsPane {
     private ArrayList<Experience> exp;
     private ArrayList<Education> edu;
     private ArrayList<String> sk;
+    private ArrayList<Employer> emp;
     
     VBox vb = new VBox(40);
     VBox r = new VBox(10);
@@ -79,6 +83,7 @@ public class MakeDocsPane {
         generateBtn.setOnAction((ActionEvent event) -> {
             ResumeGen rgen = new ResumeGen();
             BusinessCardGen bgen = new BusinessCardGen();
+            CoveLetterGen cgen = new CoveLetterGen();
             
             RadioButton rrb = (RadioButton) rtg.getSelectedToggle();
             try {
@@ -94,8 +99,32 @@ public class MakeDocsPane {
                 Logger.getLogger(MakeDocsPane.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            
-            
+            if(!emp.isEmpty()){
+                for(int i = 0; i < emp.size(); i++){
+                    try {
+                        cgen.generateHTMLPage(emp.get(i), per);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MakeDocsPane.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } 
+                
+            for (int i = 0; i < emp.size(); i++) {
+                List<String> list = new ArrayList<>();
+                //list is hard coded...
+                list.add(emp.get(i).getEmployrName()+"Cover.pdf");
+                list.add(per.getFname()+"Resume.pdf");
+                try {
+                    PdfCombine.combinePDFFiles(list, emp.get(i).getEmployrName() + "Submit.pdf");
+                } catch (FileNotFoundException e) {
+                    
+                } catch (DocumentException e) {
+                    
+                } catch (IOException e) {
+                    
+                }
+            }
+            }
+
         });
         
         r.getChildren().addAll(resumeL, rthemes);
@@ -113,12 +142,14 @@ public class MakeDocsPane {
      * @param exp
      * @param edu
      * @param sk
+     * @param emp
      */
-    public void setData(Personal per, ArrayList<Experience> exp, ArrayList<Education> edu, ArrayList<String> sk ){
+    public void setData(Personal per, ArrayList<Experience> exp, ArrayList<Education> edu, ArrayList<String> sk, ArrayList<Employer> emp){
         this.per = per;
         this.exp = exp;
         this.edu = edu;
         this.sk = sk;
+        this.emp = emp;
     }
     
 

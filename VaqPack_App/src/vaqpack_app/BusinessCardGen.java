@@ -43,7 +43,6 @@ public class BusinessCardGen {
         list.add(begin);
         list.add(style);
         
-        
         bushtml.setPer(per);
         list.add(bushtml);
 

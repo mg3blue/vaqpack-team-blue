@@ -19,16 +19,16 @@ public class BusinessCardHTML extends ResumeElement{
         StringBuilder finalString = new StringBuilder();
         finalString.append("<table>\r\n<tr>\r\n<td>\r\n");
         finalString.append("<img src=\"https://portal.utpa.edu/utpa_main/daa_home/ogs_home/ogs_web/UTRGV-FullColor-Med.png\""
-                +" alt=\"UTRGV\" style=\"width:200px;height:54px;\">\r\n");
+                +" alt=\"UTRGV\" style=\"width:150px;height:40px;\">\r\n");
         finalString.append("</td><td>");
-        finalString.append("<h2 align = \"right\">"+per.getFname()+" "+ per.getLname() +"</h2>");
-        finalString.append("<h3 align = \"right\">"+"Degree Title" +"</h3>");
-        finalString.append("<h2>Year Graduating</h3>");
+        finalString.append("<h2 style = \"padding: 10px;\" align = \"right\">"+per.getFname()+" "+ per.getLname() +"</h2>");
+//        finalString.append("<h3 align = \"right\">"+"Degree Title" +"</h3>");
+//        finalString.append("<h2>Year Graduating</h3>");
         finalString.append("</td></tr><tr><td>");
         finalString.append("<p>Email: "+per.getEmail()+"<br>");
-        finalString.append("Adress: 123 asdf Dr <br>");
-        finalString.append("City, State, Zip <br>");
-        finalString.append("PhoneNumber<p>");
+//        finalString.append("Adress: 123 asdf Dr <br>");
+//        finalString.append("City, State, Zip <br>");
+        finalString.append(per.getPhone() + "</p>\r\n");
         finalString.append("</td></tr></table>");
         this.setHtmlData(finalString.toString());
     }

@@ -20,7 +20,8 @@ public class ResumeGen {
     ArrayList<ResumeElement> list = new ArrayList<>();
 
     public void generateHTMLPage(Personal per,  ArrayList<Experience> exp, ArrayList<Education> edu, ArrayList<String> skill, String theme) throws IOException {
-        outputStream = new PrintWriter(new FileWriter(per.getFname()+"Resume.html"));
+        String filename = per.getFname()+"Resume.html";
+        outputStream = new PrintWriter(new FileWriter(filename));
         ResumeElement begin = new ResumeElement();
         ResumeElement style = new ResumeElement();
         ResumeElement end = new ResumeElement();
@@ -32,7 +33,7 @@ public class ResumeGen {
         SkillHTML skillhtml = new SkillHTML();
 
         begin.setData("<!DOCTYPE html>\r\n"
-                + "<html>\n" + "<head>\n" + "<title>" + per.getFname() +"'s Resume"+ "</title>\n");
+                + "<html>\r\n" + "<head>\r\n" + "<title>" + per.getFname() +"'s Resume"+ "</title>\r\n");
         
         if("Theme 1".equals(theme)){
             style.setData(th.rTheme1());
@@ -47,7 +48,7 @@ public class ResumeGen {
             style.setData(th.rTheme4());
         } 
         
-        end.setData("</body>\n" + "</html>");
+        end.setData("</body>\r\n" + "</html>");
 
 //        list.add(0, begin);
 //        list.add(end);
@@ -89,5 +90,10 @@ public class ResumeGen {
         if (outputStream != null) {
             outputStream.close();
         }
+        
+        HTML2PDF test = new HTML2PDF(filename, per.getFname()+"Resume.pdf");
+        test.convert2Pdf(test.getHtmlFileName(), test.getPdfFileName());
+        
+        
     }
 }

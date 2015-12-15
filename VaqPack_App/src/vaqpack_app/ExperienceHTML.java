@@ -21,28 +21,28 @@ public class ExperienceHTML extends ResumeElement{
         String quote = "\"";
         
 
-        finalString.append("<h2>Experience</h2>\n"+"<table style=\"width:50%\">");
-        finalString.append("<tr>" + "\n"); // start new row
-        finalString.append("<td><b>" + "Employer" + "</b></td>" + "\n");
-        finalString.append("<td><b>" + "Supervisor" + "</b></td>" + "\n");
-        finalString.append("<td><b>" + "City" + "</b></td>" + "\n");
-        finalString.append("<td><b>" + "State" + "</b></td>" + "\n");
-        finalString.append("<td><b>" + "Description" + "</b></td>" + "\n");
-        finalString.append("<td><b>" + "Years" + "</b></td>" + "\n");
-        finalString.append("</tr>" + "\n"); // end row
+        finalString.append("<h2>Experience</h2>\r\n"+"<table style=\"width:50%\">");
+        finalString.append("<tr>" + "\r\n"); // start new row
+        finalString.append("<th><b>" + "Employer" + "</b></th>" + "\r\n");
+        finalString.append("<th><b>" + "Supervisor" + "</b></th>" + "\r\n");
+        finalString.append("<th><b>" + "City" + "</b></th>" + "\r\n");
+        finalString.append("<th><b>" + "State" + "</b></th>" + "\r\n");
+        finalString.append("<th><b>" + "Description" + "</b></th>" + "\r\n");
+        finalString.append("<th><b>" + "Years" + "</b></th>" + "\r\n");
+        finalString.append("</tr>" + "\r\n"); // end row
         
         
         for(int i = 0; i < getExperienceElements().size(); i++){
-            finalString.append("<tr>" + "\n"); // start new row
-            finalString.append("<td>" + getExperienceElements().get(i).getEname() + "</td>" + "\n");
-            finalString.append("<td>" + getExperienceElements().get(i).getSupervisor() + "</td>" + "\n");
-            finalString.append("<td>" + getExperienceElements().get(i).getCity() + "</td>" + "\n");
-            finalString.append("<td>" + getExperienceElements().get(i).getState() + "</td>" + "\n");
-            finalString.append("<td>" + getExperienceElements().get(i).getDescription() + "</td>" + "\n");
-            finalString.append("<td>" + getExperienceElements().get(i).getYears() + "</td>" + "\n");
-            finalString.append("</tr>" + "\n"); // end row
+            finalString.append("<tr>" + "\r\n"); // start new row
+            finalString.append("<td>" + getExperienceElements().get(i).getEname() + "</td>" + "\r\n");
+            finalString.append("<td>" + getExperienceElements().get(i).getSupervisor() + "</td>" + "\r\n");
+            finalString.append("<td>" + getExperienceElements().get(i).getCity() + "</td>" + "\r\n");
+            finalString.append("<td>" + getExperienceElements().get(i).getState() + "</td>" + "\r\n");
+            finalString.append("<td>" + getExperienceElements().get(i).getDescription() + "</td>" + "\r\n");
+            finalString.append("<td>" + getExperienceElements().get(i).getYears() + "</td>" + "\r\n");
+            finalString.append("</tr>" + "\r\n"); // end row
         }
-        finalString.append("</table>" + "\n" + "<br>" + "\n");
+        finalString.append("</table>" + "\r\n" + "<br></br>" + "\r\n");
         this.setHtmlData(finalString.toString());
 }
 //

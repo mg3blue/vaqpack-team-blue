@@ -255,8 +255,8 @@ public class ResumePane {
          modSkill.setOnAction((ActionEvent event) -> {
             if(!skillList.isEmpty() && !skLV.getSelectionModel().isEmpty()){
             int x = skLV.getSelectionModel().getSelectedIndex();
-            skData.set(x, skillTF.getText());
             skillList.set(x, skillTF.getText());
+            skData.set(x, skillTF.getText());
             }
             
         });

@@ -20,14 +20,14 @@ public class SkillHTML extends ResumeElement{
     {
         StringBuilder finalString = new StringBuilder();
         
-        finalString.append("<h2>Skills</h2>\n"+"<ul>"+"\n");
+        finalString.append("<h2>Skills</h2>\r\n"+"<ul>"+"\r\n");
         for (int i = 0; i < getSkillElements().size(); i++) {
             
             finalString.append("<li>");    
             finalString.append(skillElements.get(i));
-            finalString.append("</li>"+"\n");    
+            finalString.append("</li>"+"\r\n");    
         }
-        finalString.append("</ul>"+"\n");
+        finalString.append("</ul>"+"\r\n");
         this.setHtmlData(finalString.toString());
 }
     @Override
